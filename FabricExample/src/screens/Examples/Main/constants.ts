@@ -183,4 +183,10 @@ export const examples: Example[] = [
     info: ScreenNames.AI_KEYBOARD,
     icons: "🔮",
   },
+  {
+    title: "Sticky view rotation",
+    testID: "keyboard_sticky_view_rotation",
+    info: ScreenNames.KEYBOARD_STICKY_VIEW_ROTATION,
+    icons: "🔁",
+  },
 ];

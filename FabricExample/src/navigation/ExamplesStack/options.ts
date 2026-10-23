@@ -101,4 +101,7 @@ export const options = {
     title: "AI Keyboard",
     headerShown: false,
   },
+  [ScreenNames.KEYBOARD_STICKY_VIEW_ROTATION]: {
+    title: "Sticky view rotation",
+  },
 };

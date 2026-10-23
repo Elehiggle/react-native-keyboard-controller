@@ -21,6 +21,7 @@ import KeyboardEffectsExample from "../../screens/Examples/KeyboardEffects";
 import KeyboardExtender from "../../screens/Examples/KeyboardExtender";
 import KeyboardSharedTransitionExample from "../../screens/Examples/KeyboardSharedTransitions";
 import UseKeyboardState from "../../screens/Examples/KeyboardStateHook";
+import KeyboardStickyViewRotation from "../../screens/Examples/KeyboardStickyViewRotation";
 import LiquidKeyboardExample from "../../screens/Examples/LiquidKeyboard";
 import LottieAnimation from "../../screens/Examples/Lottie";
 import ModalExample from "../../screens/Examples/Modal";
@@ -66,6 +67,7 @@ export type ExamplesStackParamList = {
   [ScreenNames.AI_LEGEND_LIST_CHAT]: undefined;
   [ScreenNames.KEYBOARD_EFFECTS]: undefined;
   [ScreenNames.AI_KEYBOARD]: undefined;
+  [ScreenNames.KEYBOARD_STICKY_VIEW_ROTATION]: undefined;
 };
 
 const Stack = createStackNavigator<ExamplesStackParamList>();
@@ -221,6 +223,11 @@ const ExamplesStack = () => (
       component={AIKeyboard}
       name={ScreenNames.AI_KEYBOARD}
       options={options[ScreenNames.AI_KEYBOARD]}
+    />
+    <Stack.Screen
+      component={KeyboardStickyViewRotation}
+      name={ScreenNames.KEYBOARD_STICKY_VIEW_ROTATION}
+      options={options[ScreenNames.KEYBOARD_STICKY_VIEW_ROTATION]}
     />
   </Stack.Navigator>
 );
