@@ -142,8 +142,8 @@ export default function WindowLiftRepro() {
           onPress={() => Keyboard.dismiss()}
         />
       </View>
-      <ScrollView style={styles.log} keyboardShouldPersistTaps="always">
-        <Text testID="window-lift.log" selectable style={styles.logText}>
+      <ScrollView keyboardShouldPersistTaps="always" style={styles.log}>
+        <Text selectable style={styles.logText} testID="window-lift.log">
           {lines.join("\n")}
         </Text>
       </ScrollView>
@@ -153,9 +153,9 @@ export default function WindowLiftRepro() {
         </Text>
         <TextInput
           ref={input}
-          testID="window-lift.input"
           placeholder="Focus, then move the window"
           style={styles.input}
+          testID="window-lift.input"
         />
       </KeyboardStickyView>
     </View>

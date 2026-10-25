@@ -21,9 +21,9 @@ export default function KeyboardAwareWindowDrag() {
         {`D-RE window drag — ${width.toFixed(1)} × ${height.toFixed(1)}`}
       </Text>
       <KeyboardAwareScrollView
-        style={styles.scroll}
         bottomOffset={76}
         keyboardShouldPersistTaps="handled"
+        style={styles.scroll}
         testID="dre_scroll"
       >
         <Text>
@@ -31,11 +31,11 @@ export default function KeyboardAwareWindowDrag() {
         </Text>
         <View style={{ height: height * 0.55 }} />
         <TextInput
-          testID="dre_input"
           accessibilityLabel="Window drag input"
-          placeholder="Type a short line"
           defaultValue="Window drag test"
+          placeholder="Type a short line"
           style={styles.input}
+          testID="dre_input"
         />
         <View style={{ height: height * 0.65 }} />
       </KeyboardAwareScrollView>

@@ -14,6 +14,7 @@ export default function OverKeyboardWindowRepro() {
   const [visible, setVisible] = useState(false);
   const [presses, setPresses] = useState(0);
   const [touches, setTouches] = useState({ starts: 0, moves: 0, ends: 0 });
+
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () =>
       setVisible(true),
@@ -21,6 +22,7 @@ export default function OverKeyboardWindowRepro() {
     const hide = Keyboard.addListener("keyboardDidHide", () =>
       setVisible(false),
     );
+
     return () => {
       show.remove();
       hide.remove();
@@ -35,9 +37,9 @@ export default function OverKeyboardWindowRepro() {
     <View style={styles.screen}>
       <Text>Focus input, then tile this window on the right.</Text>
       <TextInput
-        testID="okv-window.input"
         placeholder="Open the software keyboard"
         style={styles.input}
+        testID="okv-window.input"
       />
       <Text testID="okv-window.result">
         Presses {presses}; touch starts {touches.starts}, moves {touches.moves},
@@ -46,22 +48,22 @@ export default function OverKeyboardWindowRepro() {
       <OverKeyboardView visible={visible}>
         <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
           <View
+            collapsable={false}
             style={styles.panel}
             testID="okv-window.panel"
-            collapsable={false}
           >
             <Text>Panel: local x=12, y=160</Text>
             <Pressable
               accessibilityRole="button"
+              style={styles.button}
               testID="okv-window.increment"
-              onTouchStart={() => record("starts")}
-              onTouchMove={() => record("moves")}
-              onTouchEnd={() => record("ends")}
               onPress={() => {
                 setPresses((value) => value + 1);
                 console.log("OKV_REPRO", "press", Date.now());
               }}
-              style={styles.button}
+              onTouchEnd={() => record("ends")}
+              onTouchMove={() => record("moves")}
+              onTouchStart={() => record("starts")}
             >
               <Text>Increment: {presses}</Text>
             </Pressable>

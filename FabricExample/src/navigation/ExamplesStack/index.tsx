@@ -13,9 +13,11 @@ import FocusedInputHandlers from "../../screens/Examples/FocusedInputHandlers";
 import ImageGallery from "../../screens/Examples/ImageGallery";
 import InteractiveKeyboard from "../../screens/Examples/InteractiveKeyboard";
 import InteractiveKeyboardIOS from "../../screens/Examples/InteractiveKeyboardIOS";
+import KASVRealignmentRepro from "../../screens/Examples/KASVRealignmentRepro";
 import KeyboardAnimation from "../../screens/Examples/KeyboardAnimation";
 import KeyboardAvoidingViewExample from "../../screens/Examples/KeyboardAvoidingView";
 import KeyboardAvoidingViewAutomaticExample from "../../screens/Examples/KeyboardAvoidingViewAutomatic";
+import KeyboardAwareWindowDrag from "../../screens/Examples/KeyboardAwareWindowDrag";
 import KeyboardChatScrollViewPlayground from "../../screens/Examples/KeyboardChatScrollView";
 import KeyboardEffectsExample from "../../screens/Examples/KeyboardEffects";
 import KeyboardExtender from "../../screens/Examples/KeyboardExtender";
@@ -26,17 +28,14 @@ import LottieAnimation from "../../screens/Examples/Lottie";
 import ModalExample from "../../screens/Examples/Modal";
 import NonUIProps from "../../screens/Examples/NonUIProps";
 import OverKeyboardView from "../../screens/Examples/OverKeyboardView";
+import OverKeyboardWindowRepro from "../../screens/Examples/OverKeyboardWindowRepro";
 import ReanimatedChat from "../../screens/Examples/ReanimatedChat";
 import ReanimatedChatFlatList from "../../screens/Examples/ReanimatedChatFlatList";
 import StatusBar from "../../screens/Examples/StatusBar";
 import ToolbarExample from "../../screens/Examples/Toolbar";
+import WindowLiftRepro from "../../screens/Examples/WindowLiftRepro";
 import BottomTabBar from "../BottomTabBar";
 import NativeStack from "../NestedStack";
-
-import WindowLiftRepro from "../../screens/Examples/WindowLiftRepro";
-import KeyboardAwareWindowDrag from "../../screens/Examples/KeyboardAwareWindowDrag";
-import OverKeyboardWindowRepro from "../../screens/Examples/OverKeyboardWindowRepro";
-import KASVRealignmentRepro from "../../screens/Examples/KASVRealignmentRepro";
 
 import { options } from "./options";
 

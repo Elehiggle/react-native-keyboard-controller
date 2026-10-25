@@ -5,10 +5,11 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  useWindowDimensions,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+
 import type { KeyboardAwareScrollViewRef } from "react-native-keyboard-controller";
 
 const BOTTOM_OFFSET = 24;
@@ -26,14 +27,17 @@ export default function KASVRealignmentRepro() {
   const measure = useCallback(
     async (reason: string) => {
       const keyboard = Keyboard.metrics();
+
       if (!keyboard) {
         setReading(
           `${reason}: no RN keyboard metrics; verify keyboard visually.`,
         );
+
         return;
       }
       const scrollViewport = viewport.current;
       const field = input.current;
+
       if (!scrollViewport || !field) {
         return;
       }
@@ -59,6 +63,7 @@ export default function KASVRealignmentRepro() {
               gap,
               visible,
             };
+
             console.log("KASV_REALIGN_REPRO", JSON.stringify(result));
             setReading(
               `scroll=${offset.current.toFixed(1)} end=${end.toFixed(
@@ -79,6 +84,7 @@ export default function KASVRealignmentRepro() {
     const timers = [1000, 5000, 10000].map((delay) =>
       setTimeout(() => measure(`layout+${delay}`), delay),
     );
+
     return () => timers.forEach(clearTimeout);
   }, [measure]);
 
@@ -90,17 +96,17 @@ export default function KASVRealignmentRepro() {
             bottomOffset={BOTTOM_OFFSET}; {width} x {height}
           </Text>
           <Text
-            testID="kasv-realign.metrics"
-            style={styles.reading}
             numberOfLines={3}
+            style={styles.reading}
+            testID="kasv-realign.metrics"
           >
             {reading}
           </Text>
         </View>
         <View style={styles.synchronize}>
           <Button
-            title="synchronize()"
             testID="kasv-realign.synchronize"
+            title="synchronize()"
             onPress={async () => {
               await measure("before synchronize");
               scroll.current?.assureFocusedInputVisible();
@@ -118,13 +124,13 @@ export default function KASVRealignmentRepro() {
       >
         <KeyboardAwareScrollView
           ref={scroll}
-          testID="kasv-realign.scroll"
           bottomOffset={BOTTOM_OFFSET}
           keyboardShouldPersistTaps="always"
+          scrollEventThrottle={16}
+          testID="kasv-realign.scroll"
           onScroll={(event) => {
             offset.current = event.nativeEvent.contentOffset.y;
           }}
-          scrollEventThrottle={16}
         >
           <View style={styles.before}>
             <Text>Fixed spacer: 650 pt</Text>
@@ -134,12 +140,12 @@ export default function KASVRealignmentRepro() {
           </Text>
           <TextInput
             ref={input}
-            testID="kasv-realign.input"
             defaultValue="Rotation alignment target"
+            style={styles.input}
+            testID="kasv-realign.input"
             onFocus={() => {
               setTimeout(() => measure("focus+1500"), 1500);
             }}
-            style={styles.input}
           />
           <View style={styles.after}>
             <Text>Trailing space: 400 pt (avoids content-end clamp)</Text>
