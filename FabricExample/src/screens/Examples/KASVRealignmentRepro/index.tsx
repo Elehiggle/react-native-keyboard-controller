@@ -85,22 +85,30 @@ export default function KASVRealignmentRepro() {
   return (
     <View style={styles.screen}>
       <View style={styles.controls}>
-        <Text>
-          bottomOffset={BOTTOM_OFFSET}; {width} x {height}
-        </Text>
-        <Text testID="kasv-realign.metrics" style={styles.reading}>
-          {reading}
-        </Text>
-        <Button
-          title="synchronize()"
-          testID="kasv-realign.synchronize"
-          onPress={async () => {
-            await measure("before synchronize");
-            scroll.current?.assureFocusedInputVisible();
-            setTimeout(() => measure("after synchronize+1000"), 1000);
-            setTimeout(() => measure("after synchronize+3000"), 3000);
-          }}
-        />
+        <View style={styles.summary}>
+          <Text style={styles.reading}>
+            bottomOffset={BOTTOM_OFFSET}; {width} x {height}
+          </Text>
+          <Text
+            testID="kasv-realign.metrics"
+            style={styles.reading}
+            numberOfLines={3}
+          >
+            {reading}
+          </Text>
+        </View>
+        <View style={styles.synchronize}>
+          <Button
+            title="synchronize()"
+            testID="kasv-realign.synchronize"
+            onPress={async () => {
+              await measure("before synchronize");
+              scroll.current?.assureFocusedInputVisible();
+              setTimeout(() => measure("after synchronize+1000"), 1000);
+              setTimeout(() => measure("after synchronize+3000"), 3000);
+            }}
+          />
+        </View>
       </View>
       <View
         ref={viewport}
@@ -144,8 +152,16 @@ export default function KASVRealignmentRepro() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: "#ffffff" },
-  controls: { height: 112, paddingHorizontal: 8 },
-  reading: { height: 42, fontSize: 12 },
+  controls: {
+    height: 56,
+    paddingHorizontal: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  summary: { flex: 1, minWidth: 0 },
+  synchronize: { width: 136 },
+  reading: { fontSize: 10, lineHeight: 12 },
   viewport: { flex: 1 },
   before: { height: 650, backgroundColor: "#eeeeee" },
   input: {
