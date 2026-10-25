@@ -33,9 +33,19 @@ import ToolbarExample from "../../screens/Examples/Toolbar";
 import BottomTabBar from "../BottomTabBar";
 import NativeStack from "../NestedStack";
 
+import WindowLiftRepro from "../../screens/Examples/WindowLiftRepro";
+import KeyboardAwareWindowDrag from "../../screens/Examples/KeyboardAwareWindowDrag";
+import OverKeyboardWindowRepro from "../../screens/Examples/OverKeyboardWindowRepro";
+import KASVRealignmentRepro from "../../screens/Examples/KASVRealignmentRepro";
+
 import { options } from "./options";
 
 export type ExamplesStackParamList = {
+  [ScreenNames.WINDOW_LIFT_REPRO]: undefined;
+  [ScreenNames.KEYBOARD_AWARE_WINDOW_DRAG]: undefined;
+  [ScreenNames.OVER_KEYBOARD_WINDOW_REPRO]: undefined;
+  [ScreenNames.KASV_REALIGNMENT_REPRO]: undefined;
+
   [ScreenNames.ANIMATED_EXAMPLE]: undefined;
   [ScreenNames.REANIMATED_CHAT]: undefined;
   [ScreenNames.REANIMATED_CHAT_FLAT_LIST]: undefined;
@@ -221,6 +231,26 @@ const ExamplesStack = () => (
       component={AIKeyboard}
       name={ScreenNames.AI_KEYBOARD}
       options={options[ScreenNames.AI_KEYBOARD]}
+    />
+    <Stack.Screen
+      component={WindowLiftRepro}
+      name={ScreenNames.WINDOW_LIFT_REPRO}
+      options={options[ScreenNames.WINDOW_LIFT_REPRO]}
+    />
+    <Stack.Screen
+      component={KeyboardAwareWindowDrag}
+      name={ScreenNames.KEYBOARD_AWARE_WINDOW_DRAG}
+      options={options[ScreenNames.KEYBOARD_AWARE_WINDOW_DRAG]}
+    />
+    <Stack.Screen
+      component={OverKeyboardWindowRepro}
+      name={ScreenNames.OVER_KEYBOARD_WINDOW_REPRO}
+      options={options[ScreenNames.OVER_KEYBOARD_WINDOW_REPRO]}
+    />
+    <Stack.Screen
+      component={KASVRealignmentRepro}
+      name={ScreenNames.KASV_REALIGNMENT_REPRO}
+      options={options[ScreenNames.KASV_REALIGNMENT_REPRO]}
     />
   </Stack.Navigator>
 );

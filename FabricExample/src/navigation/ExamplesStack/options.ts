@@ -101,4 +101,10 @@ export const options = {
     title: "AI Keyboard",
     headerShown: false,
   },
+  [ScreenNames.WINDOW_LIFT_REPRO]: { title: "Window lift / 1680" },
+  [ScreenNames.KEYBOARD_AWARE_WINDOW_DRAG]: { title: "KASV window drag" },
+  [ScreenNames.OVER_KEYBOARD_WINDOW_REPRO]: {
+    title: "OverKeyboardView window",
+  },
+  [ScreenNames.KASV_REALIGNMENT_REPRO]: { title: "KASV realignment" },
 };

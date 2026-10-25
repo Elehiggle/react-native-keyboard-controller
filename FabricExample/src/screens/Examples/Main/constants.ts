@@ -183,4 +183,28 @@ export const examples: Example[] = [
     info: ScreenNames.AI_KEYBOARD,
     icons: "🔮",
   },
+  {
+    title: "Window lift / 1680",
+    testID: "window_lift_repro",
+    info: ScreenNames.WINDOW_LIFT_REPRO,
+    icons: "⌨️",
+  },
+  {
+    title: "KASV window drag",
+    testID: "keyboard_aware_window_drag",
+    info: ScreenNames.KEYBOARD_AWARE_WINDOW_DRAG,
+    icons: "⌨️",
+  },
+  {
+    title: "OverKeyboardView window",
+    testID: "over_keyboard_window_repro",
+    info: ScreenNames.OVER_KEYBOARD_WINDOW_REPRO,
+    icons: "⌨️",
+  },
+  {
+    title: "KASV realignment",
+    testID: "kasv_realignment_repro",
+    info: ScreenNames.KASV_REALIGNMENT_REPRO,
+    icons: "⌨️",
+  },
 ];
