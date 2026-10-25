@@ -102,9 +102,15 @@ export default function KASVRealignmentRepro() {
           }}
         />
       </View>
-      <View ref={viewport} collapsable={false} style={styles.viewport}>
+      <View
+        ref={viewport}
+        collapsable={false}
+        style={styles.viewport}
+        testID="kasv-realign.viewport"
+      >
         <KeyboardAwareScrollView
           ref={scroll}
+          testID="kasv-realign.scroll"
           bottomOffset={BOTTOM_OFFSET}
           keyboardShouldPersistTaps="always"
           onScroll={(event) => {
