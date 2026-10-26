@@ -1,64 +1,63 @@
 # iPad app windows: keyboard lift and OverKeyboardView placement
 
-This branch adds four example screens for iPad app windows that do not fill the screen. This guide covers two of them:
+This guide reproduces two problems in iPad app windows that do not fill the screen:
 
 - **31. Window lift / 1680** shows how far the provider lifts content when a small free window ends above the docked keyboard or reaches below the screen ([#1680](https://github.com/kirillzyusko/react-native-keyboard-controller/issues/1680)).
 - **33. OverKeyboardView window** shows where `OverKeyboardView` content lands when the app sits in the right-hand tile.
 
-The other two screens are on the branch, but this guide makes no claim about them:
+The branch also contains **32. KASV window drag** and **34. KASV realignment**. They are outside these reports; use screens 31 and 33 for the steps below.
 
-- **32. KASV window drag**: a `KeyboardAwareScrollView` with a sticky footer, for moving a free window while an input has focus.
-- **34. KASV realignment**: a `KeyboardAwareScrollView` with a fixed `bottomOffset` and a `synchronize()` button.
-
-The branch uses upstream `77c25bdf57fc9007903d2596fc96a6f9022176b7` (package version 1.22.8). Four commits up to `6753a4b2b14b15726fa163fe288b1570940bcca5` add the screens and their navigation entries; that is the tested commit. One more commit adds this guide and the media. The library source is unchanged, so this branch shows the bugs. The screens use only dependencies FabricExample already has.
+The branch uses upstream `77c25bdf57fc9007903d2596fc96a6f9022176b7` (package version 1.22.8). Four commits up to `6753a4b2b14b15726fa163fe288b1570940bcca5` add the screens and their navigation entries; that is the tested commit. Two more commits add this guide and the media. The library source is unchanged, so this branch shows the bugs. The screens use only dependencies FabricExample already has.
 
 ## Run on iOS
 
-Use Yarn 1, Xcode and CocoaPods. The Release build embeds the JS bundle, so it does not need Metro.
+These commands target an Apple silicon Mac with Node 22.13.0 or newer, Yarn 1, Ruby 3.3.10, Bundler and Xcode. CocoaPods is installed through the example's Gemfile. The Release app embeds its JS bundle and runs without Metro.
 
 ```sh
-git clone --branch codex/repro-ipad-window --single-branch https://github.com/Elehiggle/react-native-keyboard-controller.git
-cd react-native-keyboard-controller
+git clone --branch codex/repro-ipad-window --single-branch https://github.com/Elehiggle/react-native-keyboard-controller.git rnkc-repro-ipad-window
+cd rnkc-repro-ipad-window
 yarn install --frozen-lockfile
 yarn --cwd FabricExample install --frozen-lockfile
-cd FabricExample/ios
-pod install --no-repo-update
+cd FabricExample
+bundle install
+cd ios
+bundle exec pod install --no-repo-update
 ```
 
-Build with the settings of the recorded runs, from `FabricExample/ios`:
+Build the Release app from `FabricExample/ios`:
 
 ```sh
-nice -n 19 xcodebuild \
+RCT_NO_LAUNCH_PACKAGER=1 xcodebuild \
   -workspace KeyboardControllerFabricExample.xcworkspace \
   -scheme KeyboardControllerFabricExample -configuration Release \
   -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-  -derivedDataPath build -jobs 2 ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
+  -derivedDataPath build ARCHS=arm64 ONLY_ACTIVE_ARCH=YES \
   IPHONEOS_DEPLOYMENT_TARGET=15.1 build
 ```
 
-Boot an iPad Pro 13-inch (M5) simulator with iPadOS 27.0, then install and launch the app:
+Boot an iPad Pro 13-inch (M5) simulator with iPadOS 27.0. With only that simulator booted, install and launch the app:
 
 ```sh
 xcrun simctl install booted build/Build/Products/Release-iphonesimulator/KeyboardControllerFabricExample.app
 xcrun simctl launch booted org.reactjs.native.example.KeyboardControllerFabricExample
 ```
 
-Enable Windowed Apps in Settings → Multitasking & Gestures if needed. The recorded runs reused installed dependencies and an existing DerivedData directory, not a fresh clone. Before the runs, the installed executable and JS bundle matched the saved Release build.
+Enable Windowed Apps in Settings → Multitasking & Gestures if needed. The recorded runs reused installed dependencies and an existing DerivedData directory, with local CocoaPods changes to `Podfile.lock` and `PrivacyInfo.xcprivacy`; the library source was unchanged. Those generated changes are not included in this public branch. The revised setup above uses Bundler, omits the recorded build's resource throttling and disables automatic Metro startup. It has not been verified from a fresh clone.
 
 ## Window lift / 1680
 
-The screen shows `useKeyboardState` as `State: <visible> / <height>` and the `useReanimatedKeyboardAnimation` height and progress as `Provider`. A lifted provider reads negative. Below are a capture button that does not refocus, a fresh-open button, a hide button and a log of the last ten keyboard events and captures. A `KeyboardStickyView` footer holds the input.
+The screen shows `useKeyboardState` as `State: <visible> / <height>` and the `useReanimatedKeyboardAnimation` height and progress as `Provider`. A lifted provider reads negative. The capture button records window dimensions and the last keyboard event without refocusing. The screen also has focus and hide buttons and a log of the last ten events and captures. A `KeyboardStickyView` footer holds the input.
 
 ### Reproduce
 
-1. Open **31. Window lift / 1680**. Resize the window to 402×486 pt so it ends above the keyboard area.
+1. In portrait, open **31. Window lift / 1680**. Resize to a small free window and place it above the docked keyboard area. The recorded window was 402×486 pt; **Capture (no refocus)** logs the window dimensions.
 2. Focus the input and wait at least 5 seconds.
-3. Drag the title bar down until the window reaches slightly below the screen. Wait again.
+3. Drag the title bar down until the window reaches slightly below the screen. Wait at least 5 seconds. The system may hide and reopen the keyboard during the drag; do not explicitly refocus.
 4. Compare the provider readout and the sticky input with the window bottom and the keyboard top.
 
 Expected: the provider lift matches the part of the window the keyboard covers. It is 0 pt when the window ends above the keyboard.
 
-What `main` showed:
+Observed with the library source at upstream `77c25bdf`:
 
 | Case                                               | Window-relative lift reference                                    | Observed                                                                                      |
 | -------------------------------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -94,7 +93,7 @@ Expected: the panel follows the app window. A local x of 12 pt maps to screen x 
 | Full screen     | 0 pt          | 12 pt                    | 12 pt                    |
 | Right-hand tile | 521 pt        | 533 pt                   | 12 pt                    |
 
-Positions come from the screenshots at two pixels per point. This covers horizontal placement only. Five stationary taps on the visible button raised the count in each state. A small move from (122,227) to (125,229) pt over 0.4 s gave touch callbacks but no press in both states, so it does not point to a window-specific touch problem.
+Positions were measured from the original 2064×2752 px screenshots at two pixels per point. The images below are scaled to 1032×1376 px, or one pixel per point. This covers horizontal placement only. Five stationary taps raised the count in each state; the placement error did not prevent those taps from working.
 
 Full screen, panel inside the app:
 
