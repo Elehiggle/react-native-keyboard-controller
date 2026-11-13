@@ -4,6 +4,12 @@ import type { Example } from "./types";
 
 export const examples: Example[] = [
   {
+    title: "Issue #1665",
+    testID: "issue_1665",
+    info: ScreenNames.ISSUE_1665,
+    icons: "🐞",
+  },
+  {
     title: "Animated transition",
     testID: "animated_transition",
     info: ScreenNames.ANIMATED_EXAMPLE,

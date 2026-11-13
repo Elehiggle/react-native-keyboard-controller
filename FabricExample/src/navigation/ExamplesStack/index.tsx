@@ -13,6 +13,7 @@ import FocusedInputHandlers from "../../screens/Examples/FocusedInputHandlers";
 import ImageGallery from "../../screens/Examples/ImageGallery";
 import InteractiveKeyboard from "../../screens/Examples/InteractiveKeyboard";
 import InteractiveKeyboardIOS from "../../screens/Examples/InteractiveKeyboardIOS";
+import Issue1665 from "../../screens/Examples/Issue1665";
 import KeyboardAnimation from "../../screens/Examples/KeyboardAnimation";
 import KeyboardAvoidingViewExample from "../../screens/Examples/KeyboardAvoidingView";
 import KeyboardAvoidingViewAutomaticExample from "../../screens/Examples/KeyboardAvoidingViewAutomatic";
@@ -36,6 +37,7 @@ import NativeStack from "../NestedStack";
 import { options } from "./options";
 
 export type ExamplesStackParamList = {
+  [ScreenNames.ISSUE_1665]: undefined;
   [ScreenNames.ANIMATED_EXAMPLE]: undefined;
   [ScreenNames.REANIMATED_CHAT]: undefined;
   [ScreenNames.REANIMATED_CHAT_FLAT_LIST]: undefined;
@@ -81,6 +83,11 @@ const ExamplesStack = () => (
       component={ReanimatedChat}
       name={ScreenNames.REANIMATED_CHAT}
       options={options[ScreenNames.REANIMATED_CHAT]}
+    />
+    <Stack.Screen
+      component={Issue1665}
+      name={ScreenNames.ISSUE_1665}
+      options={options[ScreenNames.ISSUE_1665]}
     />
     <Stack.Screen
       component={ReanimatedChatFlatList}

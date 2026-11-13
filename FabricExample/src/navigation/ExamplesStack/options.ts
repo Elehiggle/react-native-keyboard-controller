@@ -1,6 +1,10 @@
 import { ScreenNames } from "../../constants/screenNames";
 
 export const options = {
+  [ScreenNames.ISSUE_1665]: {
+    headerShown: false,
+    title: "Issue #1665",
+  },
   [ScreenNames.ANIMATED_EXAMPLE]: {
     title: "Keyboard animation ⌨️",
   },
